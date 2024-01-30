@@ -97,7 +97,11 @@
             return $formattedDate;
         }
 
-       
+          /**
+         * Set the value of user
+         *
+         * @return  self
+         */
 
         public function setCreationdate($date){
             $this->creationdate = new \DateTime($date);

@@ -2,7 +2,7 @@
 
 $messages = $result["data"]['post'];
 $topic = $result["data"] ['topic'];   
-
+var_dump($topic);
 ?>
 
 <h1> Post</h1>

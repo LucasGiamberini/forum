@@ -294,12 +294,17 @@
         $postManager = new PostManager();
 
         $postManager->delete($id);
-
-        
+    
+        $categoryManager = new CategoryManager();
         return [
-            "view" => VIEW_DIR."forum/listCategory.php"
-      
-        ];
+            "view" => VIEW_DIR."forum/listCategory.php",
+            "data" => [
+                "category" => $categoryManager->findAll(["categoryName", "ASC"])
+            ]
+               
+            ];
+        
+  
 
        }
     }
