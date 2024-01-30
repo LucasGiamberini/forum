@@ -1,7 +1,8 @@
 <?php
 
 $messages = $result["data"]['post'];
-    
+$topic = $result["data"] ['topic'];   
+
 ?>
 
 <h1> Post</h1>
@@ -16,7 +17,9 @@ foreach($messages as $message ){
    
 <?php
 
-if(App\Session::getUser()->getId() == $message->getUserId()){
+var_dump($message);
+//var_dump(App\Session::getUser()->getId() == $message->getUserId());
+if(App\Session::getUser()->getId() == $message->getId()){
 
 ?>
 
@@ -41,7 +44,11 @@ if(App\Session::getUser()->getId() == $message->getUserId()){
 }
 
 }
+$topicId=$topic->getId();
+$userId=App\Session::getUser()->getId();
+
 if(App\Session::getUser()){
+
 
 ?>
 
@@ -55,8 +62,8 @@ if(App\Session::getUser()){
 <label for="texte">add post</label><br>
                 <textarea class="inputAdd" type="text" id="" name="postText" rows="5" cols="50" maxlength="255" >
 </textarea>
-            <input type='hidden' name='topiciD' value="<?$messages->getTopicId()?>" > <? echo $messages->getTopicId()  ?>  
-            <input type='hidden' name='UseriD'  value="<?App\Session::getUser()->getId() ?>">
+            <input type='hidden' name='topicId' value=<?= $topicId ?> > 
+            <input type='hidden' name='userId'  value=<?= $userId ?> >
  
  
     <input action="index.php?action=addTopic"  class="button" type="submit" id="submit" value="Submit" name="add" >

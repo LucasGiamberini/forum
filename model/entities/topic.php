@@ -87,7 +87,7 @@
          */ 
         public function setUser($user)
         {
-                $this->user_id = $user;
+                $this->user = $user;
 
                 return $this;
         }
@@ -96,6 +96,8 @@
             $formattedDate = $this->creationDate->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
+
+       
 
         public function setCreationdate($date){
             $this->creationdate = new \DateTime($date);

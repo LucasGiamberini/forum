@@ -27,12 +27,13 @@
         }
 
         public function postTopic($id){
-          
+         $topicManager= new TopicManager();
         $postManager = new PostManager();
             return [
                 "view" => VIEW_DIR."forum/postTopic.php",
                 "data" => [
-                    "post" => $postManager->findPostTopic($id)
+                    "post" => $postManager->findPostTopic($id),
+                   "topic" => $topicManager->findOneById($id) 
                 ]
             ];
 
@@ -93,12 +94,13 @@
         public function addPost(){
             $postManager=new PostManager();
 
-            $topicCategory=$_POST['topicChoice'];
+            $topicCategory=filter_input(INPUT_POST,"topicId", FILTER_VALIDATE_INT );
          
             $topicText=filter_input(INPUT_POST,"postText", FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $topicDate= new \DateTime();
             $topicDateFormatted = $topicDate->format('Y-m-d H:i:s');
-            $topicUser= 1;
+            $topicUser= filter_input(INPUT_POST,"userId", FILTER_VALIDATE_INT );
+
           
 
             $data=["topic_id"  => $topicCategory , "text" => $topicText , "creationDate" => $topicDateFormatted ,
@@ -116,19 +118,7 @@
 
         }
 
-        public function addTopicMenu(){
-
-            $categoryManager = new CategoryManager();
-
-            return [
-            "view" => VIEW_DIR."forum/addTopic.php",
-            "data" => [
-                "category" =>  $categoryManager->findAll(["categoryName", "ASC"])
-            ]
-
-            ];
-
-        }
+        
 
 
         public function addPostMenu(){
