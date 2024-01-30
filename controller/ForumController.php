@@ -105,14 +105,18 @@
 
             $data=["topic_id"  => $topicCategory , "text" => $topicText , "creationDate" => $topicDateFormatted ,
             "user_id" => $topicUser  ];
+            $postManager-> add($data);
 
             
-            return [
-                "view" => VIEW_DIR."forum/listCategory.php",
-                "data" => [
-                    "topic" => $postManager-> add($data)
-                ]
-            ];
+            $topicManager= new TopicManager();
+          
+                return [
+                    "view" => VIEW_DIR."forum/postTopic.php",
+                    "data" => [
+                        "post" => $postManager->findPostTopic( $topicCategory),
+                       "topic" => $topicManager->findOneById( $topicCategory) 
+                    ]
+                ];
 
 
 
@@ -120,20 +124,6 @@
 
         
 
-
-        public function addPostMenu(){
-
-            $categoryManager = new TopicManager();
-
-            return [
-            "view" => VIEW_DIR."forum/addPost.php",
-            "data" => [
-                "topic" =>  $categoryManager->findAll(["title", "ASC"])
-            ]
-
-            ];
-
-        }
 
 
        public function topicByCategory($id){
@@ -270,6 +260,8 @@
                
             ];
 
+            
+
        }
 
 
@@ -281,12 +273,13 @@
        $postManager->update($postNewText, $id);
 
 
-        return [
-            "view" => VIEW_DIR."forum/postTopic.php",
-            "data" => [
-                "post" => $postManager->findPostTopic($id)
-            ]
-        ];
+       $categoryManager = new CategoryManager();
+       return [
+           "view" => VIEW_DIR."forum/listCategory.php",
+           "data" => [
+               "category" => $categoryManager->findAll(["categoryName", "ASC"])
+           ]
+           ];
 
        }
 

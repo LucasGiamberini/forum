@@ -17,9 +17,9 @@ foreach($messages as $message ){
    
 <?php
 
-var_dump($message);
-//var_dump(App\Session::getUser()->getId() == $message->getUserId());
-if(App\Session::getUser()->getId() == $message->getId()){
+var_dump( $message->getId());
+
+if(App\Session::getUser()->getId() == $message->getUser()->getId()){
 
 ?>
 

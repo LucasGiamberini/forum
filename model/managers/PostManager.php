@@ -19,7 +19,7 @@
         public function findPostTopic($id){
             $sql = "SELECT *
                 FROM ".$this->tableName." 
-                INNER JOIN user ON  post.user=user.id_user
+                
                 WHERE topic_id = :id
                 ";
 
