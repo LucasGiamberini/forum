@@ -12,7 +12,15 @@ foreach($messages as $message ){
     ?>
    
    <p> <?=$message->getText() ?></p><br>
-    
+   
+   
+<?php
+
+if(App\Session::getUser()->getId() == $message->getUserId()){
+
+?>
+
+
 <form action="index.php?ctrl=forum&action=editPostMenu&id=<?=$message->getId()?>"method="post" enctype="multipart/form-data">  
 
     <input action="index.php?action=editPostMenu&id=<?=$message->getId()?>"  class="button" type="submit" id="submit" value="Edit" name="editCategory" >
@@ -30,7 +38,7 @@ foreach($messages as $message ){
     
     <?php
 
-
+}
 
 }
 if(App\Session::getUser()){
@@ -45,12 +53,12 @@ if(App\Session::getUser()){
 
 
 <label for="texte">add post</label><br>
-                <input  class="inputAdd" type="text" id="" name="topicText" rows="1" cols="50" maxlength="255" >
-            
-            <input type='hidden' name='topiciD' value="">       
-
+                <textarea class="inputAdd" type="text" id="" name="postText" rows="5" cols="50" maxlength="255" >
+</textarea>
+            <input type='hidden' name='topiciD' value="<?$messages->getTopicId()?>" > <? echo $messages->getTopicId()  ?>  
+            <input type='hidden' name='UseriD'  value="<?App\Session::getUser()->getId() ?>">
  
-
+ 
     <input action="index.php?action=addTopic"  class="button" type="submit" id="submit" value="Submit" name="add" >
 
 </form>

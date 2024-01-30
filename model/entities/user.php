@@ -46,7 +46,11 @@
             return $this->isBanned  ;
         }
 
-       
+        public function hasRole($role)
+        {
+            $result = $this->getRole() == json_encode($role);
+            return $result;
+        }
 
 
        

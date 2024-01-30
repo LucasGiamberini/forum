@@ -16,10 +16,24 @@
         public function register(){
             
             $userPseudo=filter_input(INPUT_POST,"pseudoRegister", FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $userPassword=filter_input(INPUT_POST,"passwordRegister", FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $userPassword=filter_input(INPUT_POST,"passwordRegister",FILTER_VALIDATE_REGEXP, [
+                "options" => [
+                    "regexp" => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{12,64}$/"
+                    // "regexp" => "/[A-Za-z0-9].{8,32}/"
+                    ]
+                ]);
             $PasswordConfirm=filter_input(INPUT_POST,"passwordConfirm", FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ;
             
-            
+        
+            if($userPassword == false ) {// verification si le mdp respecte les condition du regex (ligne 21)
+                echo 'le mots de passe ne respecte pas les condition (Une minuscule,une majuscule ,un chiffre, un caractère special et 12 caractère)';
+
+                return [
+                    "view" => VIEW_DIR."security/register.php"
+                ];
+                die;
+            }
+      
             if($userPassword !=  $PasswordConfirm) {// verification mdp est ecrit deux fois le meme
                 echo 'les mots de passe ne corresponde pas';
 
@@ -28,7 +42,8 @@
                 ];
                 die;
             }
-            
+
+           
             
             $userPasswordHash=password_hash($userPassword, PASSWORD_DEFAULT);// pour enregistrer le mdp de maniere cripter dans la bdd
             $creationDate= new \DateTime();

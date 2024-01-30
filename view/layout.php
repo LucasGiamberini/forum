@@ -21,12 +21,14 @@
                     <div id="nav-left">
                         <a href="view\home.php">Accueil</a>
                         <?php
-                        // if(App\Session::isAdmin()){
+                           
+                         if(App\Session::isAdmin()  ){
+                         
                             ?>
                             <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a>
                           
                             <?php
-                        // }
+                         }
                         ?>
                     </div>
                     <div id="nav-right">
@@ -34,7 +36,7 @@
                         
                         if(App\Session::getUser()){
                             ?>
-                            <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()->getPseudo()?></a>
+                            <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()->getPseudo() ,    App\Session::getUser()->getRole()?></a>
                             <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
                             <a href="index.php?ctrl=forum&action=category"> liste des categories</a>
                             <?php
